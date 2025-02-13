@@ -13,7 +13,7 @@ __________________________________________________________________*/
 	};
 
 #define MAGAZINE_STOCK 200
-#define LAUNCHER_STOCK 15
+#define LAUNCHER_STOCK 25
 #define PISTOL_STOCK 50
 #define RIFLE_STOCK 20
 #define MZ_STOCK 50
@@ -25,28 +25,32 @@ class cfgHALsStore
 {
 	class categories 
 	{
-		#include "config\vanilla.hpp"
+		#include "config\SIGXM7.hpp"
+		#include "config\Tier1.hpp"
 	};
 
 	class stores 
 	{
-		class my_extension_stock_vanilla
+		class SIGXM7_stock
 		{
 			displayName = $STR_ARMS_DEALER_STORE;
 			categories[] = {
-				"handgunsVanilla",
-				"riflesVanilla", 
-				"sniperRiflesVanilla", 
-				"mgVanilla",
-				"smgVanilla",
-				"launchersVanilla",
-				"launcherMagazinesVanilla",
-				"navigationVanilla",
-				"pointersVanilla",
-				"muzzlesVanilla",
-				"opticsVanilla",
-				"magazinesVanilla",  
-				"miscVanilla"
+				"riflesSIGXM7",
+				"magazinesSIGXM7"
+			};
+		};
+		class Tier1_stock
+		{
+			displayName = $STR_ARMS_DEALER_STORE;
+			categories[] = {
+				"riflesTier1",
+				"sniperRiflesTier1",
+				"mgTier1",
+				"underbarrelTier1",
+				"pointersTier1",
+				"muzzlesTier1",
+				"opticsTier1",
+				"magazinesTier1"
 			};
 		};
 	};
