@@ -101,6 +101,8 @@ _uav addEventHandler
                     _projectile setVectorDir _dir;
                 };
             };
+
+            Debug_1("%1 firing missle at %2.", _supportName, _target);
         };
     }
 ];
@@ -135,6 +137,7 @@ while {time < _timeout && canMove _uav && !_changeSides} do
         _uav flyInHeight 600;
         _groupVeh setCurrentWaypoint _wp;
         
+        _uav removeEventHandler "Fired";
         _uav removeAllEventHandlers "Fired";
         
         if !(isNull _currentTarget) then {

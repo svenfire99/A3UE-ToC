@@ -7,8 +7,9 @@
         equipFlags[] = {"specialRHS"};
     };
 
-    class 3CBF_Reb_ION : 3CBF_CCM
+    class 3CBF_Reb_ION : 3CBF_Base
     {
+        side = "Reb";
         flagTexture = "uk3cb_factions\addons\uk3cb_factions_ion\flag\ion_flag_co.paa";
         name = "3CBF ION";
         file = "3CBF_Reb_ION";

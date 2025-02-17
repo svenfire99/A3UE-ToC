@@ -24,7 +24,7 @@ private _medical = ["B_Truck_01_medical_F"];
 private _lightAPCs = [];
 private _APCs = ["BWA3_Puma_Tropen"];
 private _IFVs = ["BWA3_Puma_Tropen"];
-private _AA = ["B_APC_Tracked_01_AA_F"];
+private _AA = ["Wiesel_Desert_AA"];
 private _Amphibious = ["B_APC_Wheeled_01_cannon_F"];
 private _gunboats = ["B_Boat_Armed_01_minigun_F"];
 private _planesCAS = ["B_Plane_CAS_01_dynamicLoadout_F"];
@@ -54,7 +54,6 @@ if (isClass (configFile >> "CfgPatches" >> "CUP_AirVehicles_Core") && !isClass (
     _medical = ["CUP_B_nM997_DF_USA_DES", "CUP_B_nM997_USA_DES", "CUP_B_M1133_MEV_Desert"];
     _lightAPCs = ["CUP_B_M113A3_desert_USA", "CUP_B_RG31E_M2_USA"];
     _APCs append ["CUP_B_Boxer_HMG_GER_DES", "CUP_B_Boxer_GMG_GER_DES"];
-    _AA = ["CUP_B_M6LineBacker_USA_D", "CUP_B_nM1097_AVENGER_USA_DES", "CUP_B_M163_Vulcan_USA"];
     _Amphibious = [];
     _gunboats = ["CUP_B_RHIB2Turret_USMC"];
     _planesTransport = ["CUP_B_C130J_USMC"];
@@ -81,7 +80,6 @@ if (isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_usarmy") && !isCl
     _fuel = ["rhsusf_M978A4_usarmy_d", "rhsusf_M978A4_BKIT_usarmy_d"];
     _medical = ["rhsusf_m113_usarmy_medical", "rhsusf_M1230a1_usarmy_d"];
     _lightAPCs = ["rhsusf_M1117_D", "rhsusf_m113d_usarmy", "rhsusf_m113d_usarmy_M240", "rhsusf_m113d_usarmy_MK19", "rhsusf_M1220_M153_M2_usarmy_d", "rhsusf_M1220_M153_MK19_usarmy_d", "rhsusf_M1220_M2_usarmy_d", "rhsusf_M1230_M2_usarmy_d", "rhsusf_M1232_M2_usarmy_d", "rhsusf_M1237_M2_usarmy_d", "rhsusf_M1083A1P2_B_M2_D_fmtv_usarmy", "rhsusf_M1078A1P2_B_M2_D_fmtv_usarmy"];
-    _AA = ["RHS_M6"];
     _Amphibious = [];
     _gunboats = ["rhsusf_mkvsoc"];
     _planesCAS = ["RHS_A10"];
@@ -109,7 +107,7 @@ if (isClass (configfile >> "CfgPatches" >> "Redd_Marder_1A5")) then {
     _medical = ["Redd_Tank_Fuchs_1A4_San_Tropentarn", "Redd_Tank_LKW_leicht_gl_Wolf_Tropentarn_San"];
     _APCs append ["Redd_Marder_1A5_Tropentarn"];
     _IFVs append ["Redd_Marder_1A5_Tropentarn", "rnt_sppz_2a2_luchs_tropentarn"];
-    _AA = ["Redd_Tank_Gepard_1A2_Tropentarn"];
+    _AA append ["Redd_Tank_Gepard_1A2_Tropentarn"];
     _Amphibious = ["Redd_Tank_Fuchs_1A4_Pi_Tropentarn", "Redd_Tank_Fuchs_1A4_Jg_Tropentarn"];
     _miltiaTrucks = _trucks;
     _police = ["Redd_Tank_LKW_leicht_gl_Wolf_Tropentarn_FJg"];
@@ -121,8 +119,7 @@ if (isClass (configfile >> "CfgPatches" >> "Tornado_AWS")) then {
 };
 
 if (isClass (configfile >> "CfgPatches" >> "USAF_MQ9")) then {
-    _uavAttack append ["USAF_MQ9"];
-    _uavPortable append ["USAF_RQ4A"];
+    _uavAttack append ["USAF_MQ9", "USAF_RQ4A"];
     _planesTransport append ["USAF_C130J", "USAF_C17"];
 };
 
