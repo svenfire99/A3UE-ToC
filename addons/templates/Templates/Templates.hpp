@@ -20,6 +20,14 @@ class Templates
     // ***************************** BWA3 *****************************
 
     #include "BWA3\templates.hpp"
+	
+    // ***************************** SWE *****************************
+
+    #include "SWE\templates.hpp"
+
+    // ***************************** AMF *****************************
+
+    #include "AMF\templates.hpp"
     
     /*
         Here we are creating a completely new class that inherits from Vanilla_Base (Link in the top comment above)
