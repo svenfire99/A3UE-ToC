@@ -13,6 +13,10 @@ class Templates
         description = "";
     };
 
+    // ***************************** Custom Mix Factions *****************************
+
+    #include "custom_mixed\templates.hpp"
+
     // ***************************** 3CB Factions *****************************
 
     #include "3CBF\templates.hpp"
@@ -23,11 +27,11 @@ class Templates
 	
     // ***************************** SWE *****************************
 
-    #include "SWE\templates.hpp"
+    // #include "SWE\templates.hpp"
 
     // ***************************** AMF *****************************
 
-    #include "AMF\templates.hpp"
+    // #include "AMF\templates.hpp"
     
     /*
         Here we are creating a completely new class that inherits from Vanilla_Base (Link in the top comment above)

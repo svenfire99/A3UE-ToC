@@ -15,6 +15,9 @@ _tanks              append ["I_MBT_03_cannon_F"];
 _lightTanks         append ["I_UGV_01_rcws_F"];
 _aa                 append ["I_LT_01_AA_F"];
 
+_SDV        append [];
+_DropPod    append [];
+
 _transportBoat  append ["I_Boat_Transport_01_F"];
 _gunBoat        append ["I_Boat_Armed_01_minigun_F"];
 
@@ -60,7 +63,10 @@ _SAM            append [];
 _minefieldAT    append ["ATMine"];
 _minefieldAPERS append ["APERSMine"];
 
-private _variants = [
+#include "Vanilla_Vehicle_Attributes.sqf"
+
+_animations append [];
+_variants   append [
     #include "..\..\vehicleVariants\Vanilla_AAF\CSLA_AAF.sqf",
     #include "..\..\vehicleVariants\GM_police.sqf",
     #include "..\..\vehicleVariants\Vanilla_AAF\RF_AAF.sqf",
@@ -150,7 +156,7 @@ if (_hasSOG) then {
 };
 _voices append ["Male01GRE","Male02GRE","Male03GRE","Male04GRE","Male05GRE","Male06GRE"];
 
-_fac_insigniaes append ["AAF_1stRegiment", "", ""];
+_insignia append ["AAF_1stRegiment", "", ""];
 _milInsignia append ["AAF_3rdRegiment", "", ""];
 
 //////////////////////////
@@ -249,39 +255,20 @@ _pItems append [];
 _cItems append [];
 _uItems append [];
 
-_glasses append [
-    "G_Shades_Black", 1.5,
-    "G_Shades_Blue", 0.5,
-    "G_Shades_Green", 0.5,
-    "G_Shades_Red", 0.5,
-    "G_Aviator", 1,
-    "G_Spectacles", 1.25,
-    "G_Spectacles_Tinted", 0.75,
-    "G_Sport_Blackred", 0.34,
-    "G_Sport_BlackWhite", 0.34,
-    "G_Sport_Blackyellow", 0.33,
-    "G_Sport_Greenblack", 0.33,
-    "G_Sport_Checkered", 0.33,
-    "G_Sport_Red", 0.33,
-    "G_Squares", 1.25,
-    "G_Squares_Tinted", 0.75
-];
-_goggles append [
-    "G_Combat", 4, 
-    "G_Lowprofile", 6
-];
+_glasses append ["G_Shades_Black","G_Shades_Blue","G_Shades_Green","G_Shades_Red","G_Aviator","G_Spectacles","G_Spectacles_Tinted","G_Sport_Blackred","G_Sport_BlackWhite","G_Sport_Blackyellow","G_Sport_Greenblack","G_Sport_Checkered","G_Sport_Red","G_Squares","G_Squares_Tinted"];
+_goggles append ["G_Combat","G_Lowprofile"];
 
 ///////////////////////////////////////
 //    Special Forces Loadout Data    //
 ///////////////////////////////////////
 
-_sfUniform append ["U_I_CombatUniform", 4, "U_I_CombatUniform_shortsleeve", 6];
-_sfvests append ["V_TacVest_oli", 2, "V_PlateCarrierIA2_dgtl", 4, "V_PlateCarrierIA1_dgtl", 4];
-_sfMGvests append ["V_PlateCarrierIAGL_dgtl", 4, "V_PlateCarrierIAGL_oli", 6];
+_sfUniforms append ["U_I_CombatUniform", "U_I_CombatUniform_shortsleeve"];
+_sfvests append ["V_TacVest_oli", "V_PlateCarrierIA2_dgtl", "V_PlateCarrierIA1_dgtl"];
+_sfMGvests append ["V_PlateCarrierIAGL_dgtl","V_PlateCarrierIAGL_oli"];
 _sfMEDvests append [];
 _sfGLvests append [];
-_sfbackpacks append ["B_TacticalPack_oli", 2, "B_FieldPack_oli", 1, "B_Carryall_oli", 1, "B_AssaultPack_dgtl", 3, "B_Kitbag_sgg", 3];
-_sfhelmets append ["H_HelmetIA", 5, "H_Cap_blk_Raven", 1, "H_Cap_oli_hs", 0.25, "H_Cap_headphones", 0.25,"H_Booniehat_khk_hs", 0.25, "H_Booniehat_oli", 0.5, "H_Booniehat_dgtl", 1.5, "H_Watchcap_camo", 0.25,"H_Shemag_olive", 0.5, "H_Shemag_olive_hs", 0.5];
+_sfbackpacks append ["B_TacticalPack_oli","B_FieldPack_oli","B_Carryall_oli","B_AssaultPack_dgtl","B_Kitbag_sgg"];
+_sfhelmets append ["H_HelmetIA","H_Cap_blk_Raven","H_Cap_oli_hs","H_Cap_headphones","H_Booniehat_khk_hs","H_Booniehat_oli","H_Booniehat_dgtl","H_Watchcap_camo","H_Shemag_olive","H_Shemag_olive_hs"];
 _sfNVGs append [];
 _sfbinoculars append ["Rangefinder"];
 _sfantiInfantryGrenades append [];
@@ -334,15 +321,15 @@ _sfGLsidearms append [];
 //    Elite Loadout Data       //
 /////////////////////////////////
 
-_eliteuniforms append ["U_I_CombatUniform_shortsleeve", 5, "U_I_CombatUniform", 5];
-_eliteslUniforms append ["U_I_OfficerUniform", 10];
-_elitevests append ["V_PlateCarrierIA2_dgtl", 3.75, "V_PlateCarrierIA1_dgtl", 3.75, "V_PlateCarrierIAGL_dgtl", 1.5,"V_PlateCarrierIAGL_oli", 1];
-_eliteHvests append ["V_PlateCarrierIAGL_dgtl", 6,"V_PlateCarrierIAGL_oli", 4];
+_eliteuniforms append ["U_I_CombatUniform_shortsleeve","U_I_CombatUniform"];
+_eliteslUniforms append ["U_I_OfficerUniform"];
+_elitevests append ["V_PlateCarrierIA2_dgtl", "V_PlateCarrierIA1_dgtl","V_PlateCarrierIAGL_dgtl","V_PlateCarrierIAGL_oli"];
+_eliteHvests append ["V_PlateCarrierIAGL_dgtl","V_PlateCarrierIAGL_oli"];
 _eliteMGvests append [];
 _eliteMEDvests append [];
 _eliteGLvests append [];
-_elitebackpacks append ["B_TacticalPack_oli", 2, "B_FieldPack_oli", 0.5, "B_Carryall_oli", 1, "B_AssaultPack_dgtl", 3,"B_Kitbag_sgg", 3.5];
-_elitehelmets append ["H_HelmetIA", 6.75, "H_Cap_blk_Raven", 0.5, "H_Cap_oli_hs", 0.25, "H_Cap_headphones", 0.25, "H_Booniehat_oli", 0.5, "H_Booniehat_dgtl", 1.25, "H_Watchcap_camo", 0.25, "H_Booniehat_khk_hs", 0.25];
+_elitebackpacks append ["B_TacticalPack_oli","B_FieldPack_oli","B_Carryall_oli","B_AssaultPack_dgtl","B_Kitbag_sgg"];
+_elitehelmets append ["H_HelmetIA","H_Cap_blk_Raven","H_Cap_oli_hs","H_Cap_headphones","H_Booniehat_oli","H_Booniehat_dgtl","H_Watchcap_camo","H_Booniehat_khk_hs"];
 _eliteNVGs append [];
 _elitebinoculars append ["Rangefinder"];
 _eliteantiInfantryGrenades append [];
@@ -390,17 +377,17 @@ _eliteGLsidearms append [];
 //    Military Loadout Data    //
 /////////////////////////////////
 
-_militaryuniforms append ["U_I_CombatUniform_shortsleeve", 3, "U_I_CombatUniform", 3, "U_BG_Guerilla1_2_F", 2];
-_militaryslUniforms append ["U_I_OfficerUniform", 10];
-_militaryvests append ["V_TacVest_oli", 2, "V_PlateCarrierIA2_dgtl", 5, "V_PlateCarrierIA1_dgtl", 3];
-_militaryHvests append ["V_PlateCarrierIAGL_dgtl", 7,"V_PlateCarrierIAGL_oli", 3];
+_militaryuniforms append ["U_I_CombatUniform_shortsleeve","U_I_CombatUniform","U_BG_Guerilla1_2_F"];
+_militaryslUniforms append ["U_I_OfficerUniform"];
+_militaryvests append ["V_TacVest_oli","V_PlateCarrierIA2_dgtl","V_PlateCarrierIA1_dgtl"];
+_militaryHvests append ["V_PlateCarrierIAGL_dgtl","V_PlateCarrierIAGL_oli"];
 _militaryMGvests append [];
 _militaryMEDvests append [];
 _militarySLvests append [];
 _militarySNIvests append [];
 _militaryGLvests append [];
-_militarybackpacks append ["B_TacticalPack_oli", 2.5, "B_FieldPack_oli", 1, "B_Carryall_oli", 1.5, "B_AssaultPack_dgtl", 2.5, "B_Kitbag_sgg", 2.5];
-_militaryhelmets append ["H_HelmetIA", 6.9, "H_Cap_blk_Raven", 1, "H_Cap_oli_hs", 0.5, "H_Cap_headphones", 0.1, "H_Booniehat_oli", 0.25, "H_Booniehat_dgtl", 1.25];
+_militarybackpacks append ["B_TacticalPack_oli","B_FieldPack_oli", "B_Carryall_oli", "B_AssaultPack_dgtl", "B_Kitbag_sgg"];
+_militaryhelmets append ["H_HelmetIA", "H_Cap_blk_Raven","H_Cap_oli_hs","H_Cap_headphones","H_Booniehat_oli", "H_Booniehat_dgtl"];
 _militaryNVGs append [];
 _militarybinoculars append ["Rangefinder"];
 _militaryantiInfantryGrenades append [];
@@ -446,9 +433,9 @@ _militarysidearms append [
 //    Police Loadout Data    //
 ///////////////////////////////
 
-_policeuniforms append ["U_Marshal", 10];
-_policevests append ["V_TacVest_blk_POLICE", 6, "V_Rangemaster_belt", 4];
-_policehelmets append ["H_Cap_police", 10];
+_policeuniforms append ["U_Marshal"];
+_policevests append ["V_TacVest_blk_POLICE","V_Rangemaster_belt"];
+_policehelmets append ["H_Cap_police"];
 _policepoliceWeapons append [
     ["SMG_01_F", "", "acc_flashlight_smg_01", ["optic_Aco_smg", 3, "", 7], ["30Rnd_45ACP_Mag_SMG_01", "30Rnd_45ACP_Mag_SMG_01", "30Rnd_45ACP_Mag_SMG_01_Tracer_Red"], [], ""], 1.5,
     ["SMG_03_black", "", "", "", ["50Rnd_570x28_SMG_03","50Rnd_570x28_SMG_03","50Rnd_570x28_SMG_03"], [], ""], 0.5,
@@ -463,12 +450,12 @@ _policesidearms append ["hgun_Rook40_F", 10];
 //    Militia Loadout Data    //
 ////////////////////////////////
 
-_militiauniforms append ["U_I_CombatUniform", 3, "U_I_CombatUniform_shortsleeve", 3, "U_BG_Guerilla1_2_F", 4];
-_militiavests append ["V_BandollierB_oli", 1.25, "V_Chestrig_oli", 5, "V_TacVest_oli", 3.75];
-_militiaHvests append ["V_TacVest_oli", 10];
-_militiabackpacks append ["B_TacticalPack_oli", 4, "B_FieldPack_oli", 4, "B_AssaultPack_dgtl", 2];
+_militiauniforms append ["U_I_CombatUniform","U_I_CombatUniform_shortsleeve","U_BG_Guerilla1_2_F"];
+_militiavests append ["V_BandollierB_oli","V_Chestrig_oli","V_TacVest_oli"];
+_militiaHvests append ["V_TacVest_oli"];
+_militiabackpacks append ["B_TacticalPack_oli","B_FieldPack_oli","B_AssaultPack_dgtl"];
 _militiaatBackpacks append [];
-_militiahelmets append ["H_HelmetIA", 4, "H_Booniehat_dgtl", 3, "H_Cap_blk_Raven", 2];
+_militiahelmets append ["H_HelmetIA","H_Booniehat_dgtl","H_Cap_blk_Raven"];
 _militiaslHat append [];
 
 _militialightATLaunchers append [];
@@ -510,66 +497,140 @@ _militiasidearms append ["hgun_ACPC2_F", 10];
 ////////////////////////////////
 
 if (_hasTanks) then {
-    _crewuniforms append ["U_Tank_green_F", 10];
+    _crewuniforms append ["U_Tank_green_F"];
 } else {
-    _crewuniforms append [["U_I_CombatUniform", 4, "U_I_CombatUniform_shortsleeve", 6]];
+    _crewuniforms append [["U_I_CombatUniform","U_I_CombatUniform_shortsleeve"]];
 };
-_crewvests append ["V_BandollierB_oli", 10];
-_crewhelmets append ["H_HelmetCrew_I", 10];
+_crewvests append ["V_BandollierB_oli"];
+_crewhelmets append ["H_HelmetCrew_I"];
 _crewcarbines append [];
 _crewSMGs append [];
 
-_pilotuniforms append ["U_I_HeliPilotCoveralls", 5, "U_I_pilotCoveralls", 5];
-_pilotvests append ["V_TacVest_oli", 10];
-_pilothelmets append ["H_PilotHelmetHeli_I", 5, "H_CrewHelmetHeli_I", 5];
+_pilotuniforms append ["U_I_HeliPilotCoveralls","U_I_pilotCoveralls"];
+_pilotvests append ["V_TacVest_oli"];
+_pilothelmets append ["H_PilotHelmetHeli_I","H_CrewHelmetHeli_I"];
 _pilotSMGs append [];
 
 if (_hasMarksman) then {
-	#include "..\..\DLC_content\gear\Marksman\Vanilla_AAF.sqf"
-    #include "..\..\DLC_content\weapons\Marksman\Vanilla_AAF.sqf"
+	_sfbinoculars append ["Laserdesignator_03"];
+    _elitebinoculars append ["Laserdesignator_03"];
+    _militarybinoculars append ["Laserdesignator_03"];
+
+    _sfmarksmanRifles append [
+        ["srifle_DMR_03_khaki_F", "muzzle_snds_B", ["acc_pointer_IR", 10], ["optic_TWS", 4, "optic_Nightstalker", 2, "optic_DMS", 2.5, "optic_SOS", 1.5,"optic_AMS", 5],["20Rnd_762x51_Mag","20Rnd_762x51_Mag","20Rnd_762x51_Mag"], [], "bipod_03_F_blk"], 8,
+        ["srifle_DMR_03_F", "muzzle_snds_B", ["acc_pointer_IR", 10], ["optic_TWS", 4, "optic_Nightstalker", 2, "optic_DMS", 2.5, "optic_SOS", 1.5,"optic_AMS", 5],["20Rnd_762x51_Mag","20Rnd_762x51_Mag","20Rnd_762x51_Mag"], [], "bipod_03_F_blk"], 12,
+        ["srifle_DMR_06_olive_F", "", "", ["optic_TWS", 4, "optic_Nightstalker", 2, "optic_DMS", 2.5, "optic_SOS", 1.5,"optic_AMS", 5],["20Rnd_762x51_Mag","20Rnd_762x51_Mag","20Rnd_762x51_Mag"], [], "bipod_03_F_blk"], 5
+    ];
+    _sfsniperRifles append [
+        ["srifle_GM6_F", "", "", ["optic_SOS", 2, "optic_LRPS", 5, "optic_Nightstalker", 3,"optic_AMS", 2, "optic_KHS_blk", 4], ["5Rnd_127x108_Mag", "5Rnd_127x108_APDS_Mag"], [], ""], 1
+    ];
+    _sfmachineGuns append [
+        ["MMG_02_black_F", "muzzle_snds_338_green", ["acc_pointer_IR", 10], ["optic_tws_mg", 2.5, "optic_MRCO", 2, "optic_Holosight_blk_F", 2, "optic_Hamr", 3, "optic_ACO_grn", 1], ["130Rnd_338_Mag", "130Rnd_338_Mag", "130Rnd_338_Mag"], [], "bipod_03_F_blk"], 10
+    ];
+
+    _elitemarksmanRifles append [
+        ["srifle_DMR_03_khaki_F", "", ["acc_pointer_IR", 10], ["optic_TWS", 4, "optic_Nightstalker", 2, "optic_DMS", 2.5, "optic_SOS", 1.5,"optic_AMS", 3],["20Rnd_762x51_Mag","20Rnd_762x51_Mag","20Rnd_762x51_Mag"], [], "bipod_03_F_blk"], 4, 
+        ["srifle_DMR_03_F", "", ["acc_pointer_IR", 10], ["optic_TWS", 4, "optic_Nightstalker", 2, "optic_DMS", 2.5, "optic_SOS", 1.5,"optic_AMS", 3],["20Rnd_762x51_Mag","20Rnd_762x51_Mag","20Rnd_762x51_Mag"], [], "bipod_03_F_blk"], 6, 
+        ["srifle_DMR_06_olive_F", "", "", ["optic_TWS", 4, "optic_Nightstalker", 2, "optic_DMS", 2.5, "optic_SOS", 1.5,"optic_AMS", 3],["20Rnd_762x51_Mag","20Rnd_762x51_Mag","20Rnd_762x51_Mag"], [], "bipod_03_F_blk"], 5
+    ];
+    _elitesniperRifles append [
+        ["srifle_GM6_F", "", "", ["optic_SOS", 2, "optic_LRPS", 5, "optic_Nightstalker", 3,"optic_AMS", 2, "optic_KHS_blk", 4], ["5Rnd_127x108_Mag", "5Rnd_127x108_APDS_Mag"], [], ""], 1
+    ];
+    _elitemachineGuns append [
+        ["MMG_02_black_F", "", ["acc_pointer_IR", 10], ["optic_tws_mg", 2.5, "optic_MRCO", 2, "optic_Holosight_blk_F", 2, "optic_Hamr", 3, "optic_ACO_grn", 1], ["130Rnd_338_Mag", "130Rnd_338_Mag", "130Rnd_338_Mag"], [], "bipod_03_F_blk"], 8
+    ];
+
+    (_militaryLoadoutData get "marksmanRifles") append [
+        ["srifle_DMR_06_camo_F", "", "", ["optic_DMS", 3, "optic_MRCO", 2.5, "optic_Hamr", 4.5,"optic_AMS", 4, "optic_KHS_blk", 2], [], [], ""], 2,
+        ["srifle_DMR_06_olive_F", "", "", ["optic_DMS", 3, "optic_MRCO", 2.5, "optic_Hamr", 4.5,"optic_AMS", 4, "optic_KHS_blk", 2], [], [], ""], 5
+    ];
+    (_militiaLoadoutData get "marksmanRifles") append [
+        ["srifle_DMR_06_olive_F", "", "", ["optic_DMS", 3, "optic_MRCO", 2.5, "optic_Hamr", 4.5,"optic_AMS", 4, "optic_KHS_blk", 2], [], [], ""], 15
+    ];
+    (_militiaLoadoutData get "sniperRifles") append [
+        ["srifle_DMR_06_olive_F", "", "", ["optic_SOS", 2, "optic_LRPS", 5, "optic_Nightstalker", 3,"optic_AMS", 2, "optic_KHS_blk", 4], [], [], ""], 8
+    ];
 };
 
 if (_hasApex) then {
-    #include "..\..\DLC_content\gear\Apex\Vanilla_AAF.sqf"
-    #include "..\..\DLC_content\weapons\Apex\Vanilla_AAF.sqf"
-};
+    _sfbackpacks append ["B_ViperLightHarness_oli_F", 1.5,"B_ViperHarness_oli_F", 1.5];
+    _elitebackpacks append ["B_ViperLightHarness_oli_F", 0.75,"B_ViperHarness_oli_F", 0.75];
+    _policehelmets append ["H_MilCap_gen_F", 10, "H_Beret_gen_F", 8];
+    _policevests append ["V_TacVest_gen_F", 4];
+    _policeuniforms append ["U_B_GEN_Soldier_F", 10,"U_B_GEN_Commander_F", 8];
 
-if (_hasLawsOfWar) then {
-    #include "..\..\DLC_content\gear\Lawsofwar\Vanilla_AAF.sqf"
+    _sfmachineGuns append [
+        ["LMG_03_F", "muzzle_snds_H_MG_khk_F", ["acc_pointer_IR", 10], ["optic_tws_mg", 2.5, "optic_MRCO", 2, "optic_Holosight_blk_F", 2, "optic_Hamr", 3, "optic_ACO_grn", 1,"optic_ERCO_blk_F", 1], ["200Rnd_556x45_Box_F", "200Rnd_556x45_Box_F", "200Rnd_556x45_Box_Tracer_F"], [], ""], 3
+    ];
+    _sfSMGs append [
+        ["SMG_05_F","muzzle_snds_L",["acc_pointer_IR", 10], ["optic_Aco_smg", 3, "optic_Holosight", 7],["30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02_Tracer_Green"], [], ""], 1
+    ];
+    
+    _elitemachineGuns append [
+        ["LMG_03_F", "", ["acc_pointer_IR", 10], ["optic_tws_mg", 2.5, "optic_MRCO", 2, "optic_Holosight_blk_F", 2, "optic_Hamr", 3, "optic_ACO_grn", 1,"optic_ERCO_blk_F", 1], ["200Rnd_556x45_Box_F", "200Rnd_556x45_Box_F", "200Rnd_556x45_Box_Tracer_F"], [], ""], 2
+    ];
+    _eliteSMGs append [
+        ["SMG_05_F","", ["acc_pointer_IR", 10], ["optic_Aco_smg", 3, "optic_Holosight", 7],["30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02_Tracer_Green"], [], ""], 1
+    ];
+
+    (_militaryLoadoutData get "machineGuns") append [
+        ["LMG_03_F", "", ["acc_pointer_IR", 10], ["optic_tws_mg", 2.5, "optic_MRCO", 2, "optic_Holosight_blk_F", 2, "optic_Hamr", 3, "optic_ACO_grn", 1,"optic_ERCO_blk_F", 1], ["200Rnd_556x45_Box_F", "200Rnd_556x45_Box_F", "200Rnd_556x45_Box_Tracer_F"], [], ""], 7.5
+    ];
+    (_militaryLoadoutData get "SMGs") append [
+        ["SMG_05_F","", ["acc_pointer_IR", 10], ["optic_Aco_smg", 3, "optic_Holosight", 7],["30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02_Tracer_Green"], [], ""], 4
+    ];
+
+    (_policeLoadoutData get "SMGs") append [
+        ["SMG_05_F","","", _policeSMGOptics, ["30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02_Tracer_Green"], [], ""], 6
+    ];
+
+    (_militiaLoadoutData get "machineGuns") append [
+        ["LMG_03_F", "", ["acc_pointer_IR", 10], ["optic_tws_mg", 2.5, "optic_MRCO", 2, "optic_Holosight_blk_F", 2, "optic_Hamr", 3, "optic_ACO_grn", 1,"optic_ERCO_blk_F", 1], ["200Rnd_556x45_Box_F", "200Rnd_556x45_Box_F", "200Rnd_556x45_Box_Tracer_F"], [], ""], 14
+    ];
+    (_militiaLoadoutData get "SMGs") append [
+        ["SMG_05_F","",["acc_pointer_IR", 10], ["optic_Aco_smg", 3, "optic_Holosight", 7], ["30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02","30Rnd_9x21_Mag_SMG_02_Tracer_Green"], [], ""], 7.5
+    ];
 };
 
 if (_hasContact) then {
     #include "..\..\DLC_content\gear\Contact\Vanilla_AAF.sqf"
+
     #include "..\..\DLC_content\weapons\Contact\Vanilla_AAF.sqf"
 };
 
 if (_hasRF) then {
     #include "..\..\DLC_content\gear\RF\Vanilla_AAF.sqf"
+
     #include "..\..\DLC_content\weapons\RF\Vanilla_AAF.sqf"
 };
 
 if (_hasWs) then {
     #include "..\..\DLC_content\gear\WS\Vanilla_AAF.sqf"
+
     #include "..\..\DLC_content\weapons\WS\Vanilla_AAF.sqf"
 };
 
 if (_hasCSLA) then {
     #include "..\..\DLC_content\gear\CSLA\Vanilla_AAF.sqf"
+
     #include "..\..\DLC_content\weapons\CSLA\Vanilla_AAF.sqf"
 };
 
 if (_hasGM) then {
     #include "..\..\DLC_content\gear\GM\Vanilla_AAF.sqf"
+
     #include "..\..\DLC_content\weapons\GM\Vanilla_AAF.sqf"
 };
 
 if (_hasSOG) then {
     #include "..\..\DLC_content\gear\SOG\Vanilla_AAF.sqf"
+
     #include "..\..\DLC_content\weapons\SOG\Vanilla_AAF.sqf"
 };
 
 if (_hasSPE) then {
     #include "..\..\DLC_content\gear\SPE\Vanilla_AAF.sqf"
+
     #include "..\..\DLC_content\weapons\SPE\Vanilla_AAF.sqf"
 };
 
@@ -579,5 +640,6 @@ if (_hasEF) then {
 
 if (isClass (configFile >> "cfgVehicles" >> "CUP_ZSU23_Base")) then {
     #include "..\..\MOD_content\CUP\Vanilla_AAF\Gear_AAF.sqf"
+
     #include "..\..\MOD_content\CUP\Vanilla_AAF\Weapons_AAF.sqf"
 };

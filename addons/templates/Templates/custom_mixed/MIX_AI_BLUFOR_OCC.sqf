@@ -18,18 +18,16 @@ private _hasEF = "ef" in A3A_enabledDLC;
 //   Side Information   //
 //////////////////////////
 
-["name", "BLUFOR"] call _fnc_saveToTemplate;
+["name", "NATO"] call _fnc_saveToTemplate;
 ["spawnMarkerName", format [localize "STR_supportcorridor", "BLUFOR"]] call _fnc_saveToTemplate;
 
-["flag", "Flag_AAF_F"] call _fnc_saveToTemplate;
-["flagTexture", "a3\data_f\flags\flag_aaf_co.paa"] call _fnc_saveToTemplate;
-["flagMarkerType", "flag_AAF"] call _fnc_saveToTemplate;
+["flag", "Flag_NATO_F"] call _fnc_saveToTemplate;
+["flagTexture", "a3\Data_F\Flags\Flag_NATO_CO.paa"] call _fnc_saveToTemplate;
+["flagMarkerType", "flag_NATO"] call _fnc_saveToTemplate;
 
 //////////////////////////
 //       Vehicles       //
 //////////////////////////
-
-["vehiclesSDV", ["I_SDV_01_F"]] call _fnc_saveToTemplate;
 
 ["ammobox", "I_supplyCrate_F"] call _fnc_saveToTemplate;     //Don't touch or you die a sad and lonely death!
 ["surrenderCrate", "Box_IND_Wps_F"] call _fnc_saveToTemplate; //Changeing this from default will require you to define logistics attachement offset for the box type
@@ -51,6 +49,9 @@ private _airborneVehicles = [];
 private _tanks = [];
 private _lightTanks = [];
 private _aa = [];
+
+private _SDV = [];
+private _DropPod = [];
 
 private _transportBoat = [];
 private _gunBoat = [];
@@ -99,12 +100,16 @@ private _SAM = [];
 private _minefieldAT = [];
 private _minefieldAPERS = [];
 
+private _animations = [];
 private _variants = [];
 
 private _faces = [];
 private _voices = [];
+private _sfVoices = [];
+private _eliteVoices = [];
 
 private _insignia = [];
+private _sfInsignia = [];
 private _milInsignia = [];
 
 //////////////////////////
@@ -194,88 +199,172 @@ private _goggles = [];
 //    Special Forces Loadout Data    //
 ///////////////////////////////////////
 
-private _sfUniform = [];
-private _sfvests = [];
-private _sfHvests = [];
-private _sfMGvests = [];
-private _sfMEDvests = [];
-private _sfGLvests = [];
-private _sfbackpacks = [];
-private _sfhelmets = [];
-private _sfNVGs = [];
-private _sfbinoculars = [];
-private _sfantiInfantryGrenades = [];
-private _sflightATLaunchers = [];
-private _sflightHELaunchers = [];
-
 private _sfslRifles = [];
 private _sfrifles = [];
 private _sfcarbines = [];
 private _sfgrenadeLaunchers = [];
+private _sfdesignatedGrenadeLaunchers = [];
 private _sfSMGs = [];
 private _sfmachineGuns = [];
 private _sfmarksmanRifles = [];
 private _sfsniperRifles = [];
+private _sflightATLaunchers = [];
+private _sflightHELaunchers = [];
+private _sfATLaunchers = [];
+private _sfmissleATLaunchers = [];
+private _sfAALaunchers = [];
 private _sfsidearms = [];
 private _sfGLsidearms = [];
+
+private _sfATMines = [];
+private _sfAPMines = [];
+private _sflightExplosives = [];
+private _sfheavyExplosives = [];
+
+private _sfantiInfantryGrenades = [];
+private _sfsmokeGrenades = [];
+private _sfsignalsmokeGrenades = [];
+
+private _sfmaps = [];
+private _sfwatches = [];
+private _sfcompasses = [];
+private _sfradios = [];
+private _sfgpses = [];
+private _sfNVGs = [];
+private _sfbinoculars = [];
+private _sfrangefinders = [];
+
+private _sfuniforms = [];
+private _sfslUniforms = [];
+private _sfvests = [];
+private _sfHvests = [];
+private _sfMGvests = [];
+private _sfMEDvests = [];
+private _sfSLvests = [];
+private _sfSNIvests = [];
+private _sfGLvests = [];
+private _sfbackpacks = [];
+private _sfatBackpacks = [];
+private _sflongRangeRadios = [];
+private _sfhelmets = [];
+private _sfslHat = [];
+private _sfsniHats = [];
+private _sfglasses = [];
+private _sfgoggles = [];
 
 /////////////////////////////////
 //    Elite Loadout Data       //
 /////////////////////////////////
 
-private _eliteuniforms = [];
-private _elitevests = [];
-private _eliteMGvests = [];
-private _eliteMEDvests = [];
-private _eliteGLvests = [];
-private _elitebackpacks = [];
-private _elitehelmets = [];
-private _eliteNVGs = [];
-private _elitebinoculars = [];
-private _eliteantiInfantryGrenades = [];
-private _elitelightATLaunchers = [];
-private _eliteATLaunchers = [];
-
+private _eliteslRifles = [];
 private _eliterifles = [];
 private _elitecarbines = [];
-private _elitedesignatedGrenadeLaunchers = [];
 private _elitegrenadeLaunchers = [];
+private _elitedesignatedGrenadeLaunchers = [];
 private _eliteSMGs = [];
 private _elitemachineGuns = [];
 private _elitemarksmanRifles = [];
 private _elitesniperRifles = [];
+private _elitelightATLaunchers = [];
+private _elitelightHELaunchers = [];
+private _eliteATLaunchers = [];
+private _elitemissleATLaunchers = [];
+private _eliteAALaunchers = [];
 private _elitesidearms = [];
 private _eliteGLsidearms = [];
+
+private _eliteATMines = [];
+private _eliteAPMines = [];
+private _elitelightExplosives = [];
+private _eliteheavyExplosives = [];
+
+private _eliteantiInfantryGrenades = [];
+private _elitesmokeGrenades = [];
+private _elitesignalsmokeGrenades = [];
+
+private _elitemaps = [];
+private _elitewatches = [];
+private _elitecompasses = [];
+private _eliteradios = [];
+private _elitegpses = [];
+private _eliteNVGs = [];
+private _elitebinoculars = [];
+private _eliterangefinders = [];
+
+private _eliteuniforms = [];
+private _eliteslUniforms = [];
+private _elitevests = [];
+private _eliteHvests = [];
+private _eliteMGvests = [];
+private _eliteMEDvests = [];
+private _eliteSLvests = [];
+private _eliteSNIvests = [];
+private _eliteGLvests = [];
+private _elitebackpacks = [];
+private _eliteatBackpacks = [];
+private _elitelongRangeRadios = [];
+private _elitehelmets = [];
+private _eliteslHat = [];
+private _elitesniHats = [];
+private _eliteglasses = [];
+private _elitegoggles = [];
 
 /////////////////////////////////
 //    Military Loadout Data    //
 /////////////////////////////////
 
+private _militaryslRifles = [];
+private _militaryrifles = [];
+private _militarycarbines = [];
+private _militarygrenadeLaunchers = [];
+private _militarydesignatedGrenadeLaunchers = [];
+private _militarySMGs = [];
+private _militarymachineGuns = [];
+private _militarymarksmanRifles = [];
+private _militarysniperRifles = [];
+private _militarylightATLaunchers = [];
+private _militarylightHELaunchers = [];
+private _militaryATLaunchers = [];
+private _militarymissleATLaunchers = [];
+private _militaryAALaunchers = [];
+private _militarysidearms = [];
+private _militaryGLsidearms = [];
+
+private _militaryATMines = [];
+private _militaryAPMines = [];
+private _militarylightExplosives = [];
+private _militaryheavyExplosives = [];
+
+private _militaryantiInfantryGrenades = [];
+private _militarysmokeGrenades = [];
+private _militarysignalsmokeGrenades = [];
+
+private _militarymaps = [];
+private _militarywatches = [];
+private _militarycompasses = [];
+private _militaryradios = [];
+private _militarygpses = [];
+private _militaryNVGs = [];
+private _militarybinoculars = [];
+private _militaryrangefinders = [];
+
 private _militaryuniforms = [];
+private _militaryslUniforms = [];
 private _militaryvests = [];
+private _militaryHvests = [];
 private _militaryMGvests = [];
 private _militaryMEDvests = [];
 private _militarySLvests = [];
 private _militarySNIvests = [];
 private _militaryGLvests = [];
 private _militarybackpacks = [];
+private _militaryatBackpacks = [];
+private _militarylongRangeRadios = [];
 private _militaryhelmets = [];
-private _militaryNVGs = [];
-private _militarybinoculars = [];
-private _militaryantiInfantryGrenades = [];
-private _militarylightATLaunchers = [];
-private _militaryATLaunchers = [];
-
-private _militaryslRifles = [];
-private _militaryrifles = [];
-private _militarycarbines = [];
-private _militarySMGs = [];
-private _militarydesignatedGrenadeLaunchers = [];
-private _militarygrenadeLaunchers = [];
-private _militarymachineGuns = [];
-private _militarymarksmanRifles = [];
-private _militarysniperRifles = [];
-private _militarysidearms = [];
+private _militaryslHat = [];
+private _militarysniHats = [];
+private _militaryglasses = [];
+private _militarygoggles = [];
 
 ///////////////////////////////
 //    Police Loadout Data    //
@@ -291,27 +380,62 @@ private _policesidearms = [];
 //    Militia Loadout Data    //
 ////////////////////////////////
 
-private _militiauniforms = [];
-private _militiavests = [];
-private _militiabackpacks = [];
-private _militiaatBackpacks = [];
-private _militiahelmets = [];
-private _militiaslHat = [];
-
-private _militialightATLaunchers = [];
 private _militiaslRifles = [];
 private _militiarifles = [];
 private _militiacarbines = [];
 private _militiagrenadeLaunchers = [];
+private _militiadesignatedGrenadeLaunchers = [];
 private _militiaSMGs = [];
 private _militiamachineGuns = [];
 private _militiamarksmanRifles = [];
 private _militiasniperRifles = [];
+private _militialightATLaunchers = [];
+private _militialightHELaunchers = [];
+private _militiaATLaunchers = [];
+private _militiamissleATLaunchers = [];
+private _militiaAALaunchers = [];
 private _militiasidearms = [];
+private _militiaGLsidearms = [];
 
-////////////////////////////////
-//    Militia Loadout Data    //
-////////////////////////////////
+private _militiaATMines = [];
+private _militiaAPMines = [];
+private _militialightExplosives = [];
+private _militiaheavyExplosives = [];
+
+private _militiaantiInfantryGrenades = [];
+private _militiasmokeGrenades = [];
+private _militiasignalsmokeGrenades = [];
+
+private _militiamaps = [];
+private _militiawatches = [];
+private _militiacompasses = [];
+private _militiaradios = [];
+private _militiagpses = [];
+private _militiaNVGs = [];
+private _militiabinoculars = [];
+private _militiarangefinders = [];
+
+private _militiauniforms = [];
+private _militiaslUniforms = [];
+private _militiavests = [];
+private _militiaHvests = [];
+private _militiaMGvests = [];
+private _militiaMEDvests = [];
+private _militiaSLvests = [];
+private _militiaSNIvests = [];
+private _militiaGLvests = [];
+private _militiabackpacks = [];
+private _militiaatBackpacks = [];
+private _militialongRangeRadios = [];
+private _militiahelmets = [];
+private _militiaslHat = [];
+private _militiasniHats = [];
+private _militiaglasses = [];
+private _militiagoggles = [];
+
+/////////////////////////////
+//    Misc Loadout Data    //
+/////////////////////////////
 
 private _crewuniforms = [];
 private _crewvests = [];
@@ -324,10 +448,27 @@ private _pilotvests = [];
 private _pilothelmets = [];
 private _pilotSMGs = [];
 
-//If RHS
-if (isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_usarmy")) then {
-    #include "RHS\MIX_RHS_OCC.sqf"
-};
+
+/////////////////////////////////
+//    Include Factions here    //
+/////////////////////////////////
+
+#include "Vanilla\MIX_AAF.sqf"
+#include "Vanilla\MIX_NATO_Arid.sqf"
+
+#include "Vanilla\Vanilla_Vehicle_Attributes.sqf"
+
+// if (isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_usarmy")) then {
+//     #include "RHS\MIX_US_Army_D.sqf"
+//     #include "RHS\RHS_Vehicle_Attributes.sqf"
+// };
+
+//////////////////////////////////
+//  End Include Factions here   //
+//////////////////////////////////
+
+["vehiclesSDV", _SDV] call _fnc_saveToTemplate;
+["vehiclesDropPod", _DropPod] call _fnc_saveToTemplate; 
 
 ["vehiclesAirPatrol", _airPatrol] call _fnc_saveToTemplate;
 ["vehiclesPlanesGunship", _gunship] call _fnc_saveToTemplate;
@@ -376,21 +517,7 @@ if (isClass (configFile >> "CfgFactionClasses" >> "rhs_faction_usarmy")) then {
 ["vehiclesFuelTrucks", _fuelTrucks] call _fnc_saveToTemplate;
 ["vehiclesMedical", _medicalTrucks] call _fnc_saveToTemplate;
 
-#include "Vanilla_Vehicle_Attributes.sqf"
-
-["animations", [
-    #include "..\vehicleAnimations\vehicleAnimations_Vanilla.sqf",
-    #include "..\vehicleAnimations\vehicleAnimations_WS.sqf",
-    #include "..\vehicleAnimations\vehicleAnimations_RF.sqf",
-    #include "..\vehicleAnimations\vehicleAnimations_GM.sqf",
-    #include "..\vehicleAnimations\vehicleAnimations_GMX_AAF.sqf",
-    #include "..\vehicleAnimations\vehicleAnimations_CSLA.sqf",
-    #include "..\vehicleAnimations\vehicleAnimations_SOG.sqf",
-    #include "..\vehicleAnimations\vehicleAnimations_SPE.sqf",
-    #include "..\vehicleAnimations\vehicleAnimations_EF.sqf",
-    #include "..\MOD_content\CUP\Vehicles_Animations.sqf"
-]] call _fnc_saveToTemplate;
-
+["animations", _animations] call _fnc_saveToTemplate;
 ["variants", _variants] call _fnc_saveToTemplate;
 
 /////////////////////
@@ -421,7 +548,6 @@ _loadoutData set ["SMGs", _SMGs];
 _loadoutData set ["machineGuns", _machineGuns];
 _loadoutData set ["marksmanRifles", _marksmanRifles];
 _loadoutData set ["sniperRifles", _sniperRifles];
-
 _loadoutData set ["lightATLaunchers", _lightATLaunchers];
 _loadoutData set ["lightHELaunchers", _lightHELaunchers];
 _loadoutData set ["ATLaunchers", _ATLaunchers];
@@ -476,7 +602,7 @@ _loadoutData set ["slHat", _slHat];
 _loadoutData set ["sniHats", _sniHats];
 
 _loadoutData set ["glasses", _glasses];
-_loadoutData set ["goggles", ]_goggles;
+_loadoutData set ["goggles", _goggles];
 
 //Item *set* definitions. These are added in their entirety to unit loadouts. No randomisation is applied.
 _loadoutData set ["items_medical_basic", ["BASIC"] call A3A_fnc_itemset_medicalSupplies]; //this line defines the basic medical loadout for vanilla
@@ -515,275 +641,243 @@ _loadoutData set ["items_unarmed_extras", _uItems];
 ///////////////////////////////////////
 
 private _sfLoadoutData = _loadoutData call _fnc_copyLoadoutData; 
-_sfLoadoutData set ["slRifles", _sfslRifles];
-_sfLoadoutData set ["rifles", _sfrifles];
-_sfLoadoutData set ["carbines", _sfcarbines];
-_sfLoadoutData set ["grenadeLaunchers", _sfgrenadeLaunchers];
-_sfLoadoutData set ["designatedGrenadeLaunchers", _sfdesignatedGrenadeLaunchers];
-_sfLoadoutData set ["SMGs", _sfSMGs];
-_sfLoadoutData set ["machineGuns", _sfmachineGuns];
-_sfLoadoutData set ["marksmanRifles", _sfmarksmanRifles];
-_sfLoadoutData set ["sniperRifles", _sfsniperRifles];
+if (count _sfslRifles > 0) then { _sfLoadoutData set ["slRifles", _sfslRifles]; };
+if (count _sfrifles > 0) then { _sfLoadoutData set ["rifles", _sfrifles]; };
+if (count _sfcarbines > 0) then { _sfLoadoutData set ["carbines", _sfcarbines]; };
+if (count _sfgrenadeLaunchers > 0) then { _sfLoadoutData set ["grenadeLaunchers", _sfgrenadeLaunchers]; };
+if (count _sfdesignatedGrenadeLaunchers > 0) then { _sfLoadoutData set ["designatedGrenadeLaunchers", _sfdesignatedGrenadeLaunchers]; };
+if (count _sfSMGs > 0) then { _sfLoadoutData set ["SMGs", _sfSMGs]; };
+if (count _sfmachineGuns > 0) then { _sfLoadoutData set ["machineGuns", _sfmachineGuns]; };
+if (count _sfmarksmanRifles > 0) then { _sfLoadoutData set ["marksmanRifles", _sfmarksmanRifles]; };
+if (count _sfsniperRifles > 0) then { _sfLoadoutData set ["sniperRifles", _sfsniperRifles]; };
+if (count _sflightATLaunchers > 0) then { _sfLoadoutData set ["lightATLaunchers", _sflightATLaunchers]; };
+if (count _sflightHELaunchers > 0) then { _sfLoadoutData set ["lightHELaunchers", _sflightHELaunchers]; };
+if (count _sfATLaunchers > 0) then { _sfLoadoutData set ["ATLaunchers", _sfATLaunchers]; };
+if (count _sfmissleATLaunchers > 0) then { _sfLoadoutData set ["missileATLaunchers", _sfmissleATLaunchers]; };
+if (count _sfAALaunchers > 0) then { _sfLoadoutData set ["AALaunchers", _sfAALaunchers]; };
+if (count _sfsidearms > 0) then { _sfLoadoutData set ["sidearms", _sfsidearms]; };
+if (count _sfGLsidearms > 0) then { _sfLoadoutData set ["GLsidearms", _sfGLsidearms]; };
 
-_sfLoadoutData set ["lightATLaunchers", _sflightATLaunchers];
-_sfLoadoutData set ["lightHELaunchers", _sflightHELaunchers];
-_sfLoadoutData set ["ATLaunchers", _sfATLaunchers];
-_sfLoadoutData set ["missileATLaunchers", _sfmissleATLaunchers];
-_sfLoadoutData set ["AALaunchers", _sfAALaunchers];
-_sfLoadoutData set ["sidearms", _sfsidearms];
-_sfLoadoutData set ["GLsidearms", _sfGLsidearms];
+if (count _sfATMines > 0) then { _sfLoadoutData set ["ATMines", _sfATMines]; };
+if (count _sfAPMines > 0) then { _sfLoadoutData set ["APMines", _sfAPMines]; };
+if (count _sflightExplosives > 0) then { _sfLoadoutData set ["lightExplosives", _sflightExplosives]; };
+if (count _sfheavyExplosives > 0) then { _sfLoadoutData set ["heavyExplosives", _sfheavyExplosives]; };
 
-_sfLoadoutData set ["ATMines", _sfATMines];
-_sfLoadoutData set ["APMines", _sfAPMines];
-_sfLoadoutData set ["lightExplosives", _sflightExplosives];
-_sfLoadoutData set ["heavyExplosives", _sfheavyExplosives];
+if (count _sfantiInfantryGrenades > 0) then { _sfLoadoutData set ["antiInfantryGrenades", _sfantiInfantryGrenades]; };
+if (count _sfsmokeGrenades > 0) then { _sfLoadoutData set ["smokeGrenades", _sfsmokeGrenades]; };
+if (count _sfsignalsmokeGrenades > 0) then { _sfLoadoutData set ["signalsmokeGrenades", _sfsignalsmokeGrenades]; };
 
-_sfLoadoutData set ["antiInfantryGrenades", _sfantiInfantryGrenades];
-_sfLoadoutData set ["smokeGrenades", _sfsmokeGrenades];
-_sfLoadoutData set ["signalsmokeGrenades", _sfsignalsmokeGrenades];
+if (count _sfmaps > 0) then { _sfLoadoutData set ["maps", _sfmaps]; };
+if (count _sfwatches > 0) then { _sfLoadoutData set ["watches", _sfwatches]; };
+if (count _sfcompasses > 0) then { _sfLoadoutData set ["compasses", _sfcompasses]; };
+if (count _sfradios > 0) then { _sfLoadoutData set ["radios", _sfradios]; };
+if (count _sfgpses > 0) then { _sfLoadoutData set ["gpses", _sfgpses]; };
+if (count _sfNVGs > 0) then { _sfLoadoutData set ["NVGs", _sfNVGs]; };
+if (count _sfbinoculars > 0) then { _sfLoadoutData set ["binoculars", _sfbinoculars]; };
+if (count _sfrangefinders > 0) then { _sfLoadoutData set ["rangefinders", _sfrangefinders]; };
 
-_sfLoadoutData set ["maps", _sfmaps];
-_sfLoadoutData set ["watches", _sfwatches];
-_sfLoadoutData set ["compasses", _sfcompasses];
-_sfLoadoutData set ["radios", _sfradios];
-_sfLoadoutData set ["gpses", _sfgpses];
-_sfLoadoutData set ["NVGs", _sfNVGs];
-_sfLoadoutData set ["binoculars", _sfbinoculars];
-_sfLoadoutData set ["rangefinders", _sfrangefinders];
-
-_sfLoadoutData set ["traitorUniforms", _sftraitorUniforms];
-_sfLoadoutData set ["traitorVests", _sftraitorVests];
-_sfLoadoutData set ["traitorHats", _sftraitorHats];
-_sfLoadoutData set ["officerUniforms", _sfofficerUniforms];
-_sfLoadoutData set ["officerVests", _sfofficerVests];
-_sfLoadoutData set ["officerHats", _sfofficerHats];
-_sfLoadoutData set ["cloakUniforms", _sfcloakUniforms];
-_sfLoadoutData set ["cloakVests", _sfcloakVests];
-
-_sfLoadoutData set ["uniforms", _sfuniforms];
-_sfLoadoutData set ["slUniforms", _sfslUniforms];
-_sfLoadoutData set ["vests", _sfvests];
-_sfLoadoutData set ["Hvests", _sfHvests];
-_sfLoadoutData set ["MGvests", _sfMGvests];
-_sfLoadoutData set ["MEDvests", _sfMEDvests];
-_sfLoadoutData set ["SLvests", _sfSLvests];
-_sfLoadoutData set ["sniVests", _sfSNIvests];
-_sfLoadoutData set ["GLvests", _sfGLvests];
-_sfLoadoutData set ["backpacks", _sfbackpacks];
-_sfLoadoutData set ["atBackpacks", _sfatBackpacks];
-_sfLoadoutData set ["longRangeRadios", _sflongRangeRadios];
-_sfLoadoutData set ["helmets", _sfhelmets];
-_sfLoadoutData set ["slHat", _sfslHat];
-_sfLoadoutData set ["sniHats", _sfsniHats];
+if (count _sfuniforms > 0) then { _sfLoadoutData set ["uniforms", _sfuniforms]; };
+if (count _sfslUniforms > 0) then { _sfLoadoutData set ["slUniforms", _sfslUniforms]; };
+if (count _sfvests > 0) then { _sfLoadoutData set ["vests", _sfvests]; };
+if (count _sfHvests > 0) then { _sfLoadoutData set ["Hvests", _sfHvests]; };
+if (count _sfMGvests > 0) then { _sfLoadoutData set ["MGvests", _sfMGvests]; };
+if (count _sfMEDvests > 0) then { _sfLoadoutData set ["MEDvests", _sfMEDvests]; };
+if (count _sfSLvests > 0) then { _sfLoadoutData set ["SLvests", _sfSLvests]; };
+if (count _sfSNIvests > 0) then { _sfLoadoutData set ["sniVests", _sfSNIvests]; };
+if (count _sfGLvests > 0) then { _sfLoadoutData set ["GLvests", _sfGLvests]; };
+if (count _sfbackpacks > 0) then { _sfLoadoutData set ["backpacks", _sfbackpacks]; };
+if (count _sfatBackpacks > 0) then { _sfLoadoutData set ["atBackpacks", _sfatBackpacks]; };
+if (count _sflongRangeRadios > 0) then { _sfLoadoutData set ["longRangeRadios", _sflongRangeRadios]; };
+if (count _sfhelmets > 0) then { _sfLoadoutData set ["helmets", _sfhelmets]; };
+if (count _sfslHat > 0) then { _sfLoadoutData set ["slHat", _sfslHat]; };
+if (count _sfsniHats > 0) then { _sfLoadoutData set ["sniHats", _sfsniHats]; };
+if (count _sfglasses > 0) then { _sfLoadoutData set ["glasses", _sfglasses]; };
+if (count _sfgoggles > 0) then { _sfLoadoutData set ["goggles", _sfgoggles]; };
 
 /////////////////////////////////
 //    Elite Loadout Data       //
 /////////////////////////////////
 
 private _eliteLoadoutData = _loadoutData call _fnc_copyLoadoutData; 
-_eliteLoadoutData set ["slRifles", _eliteslRifles];
-_eliteLoadoutData set ["rifles", _eliterifles];
-_eliteLoadoutData set ["carbines", _elitecarbines];
-_eliteLoadoutData set ["grenadeLaunchers", _elitegrenadeLaunchers];
-_eliteLoadoutData set ["designatedGrenadeLaunchers", _elitedesignatedGrenadeLaunchers];
-_eliteLoadoutData set ["SMGs", _eliteSMGs];
-_eliteLoadoutData set ["machineGuns", _elitemachineGuns];
-_eliteLoadoutData set ["marksmanRifles", _elitemarksmanRifles];
-_eliteLoadoutData set ["sniperRifles", _elitesniperRifles];
+if (count _eliteslRifles > 0) then { _eliteLoadoutData set ["slRifles", _eliteslRifles]; };
+if (count _eliterifles > 0) then { _eliteLoadoutData set ["rifles", _eliterifles]; };
+if (count _elitecarbines > 0) then { _eliteLoadoutData set ["carbines", _elitecarbines]; };
+if (count _elitegrenadeLaunchers > 0) then { _eliteLoadoutData set ["grenadeLaunchers", _elitegrenadeLaunchers]; };
+if (count _elitedesignatedGrenadeLaunchers > 0) then { _eliteLoadoutData set ["designatedGrenadeLaunchers", _elitedesignatedGrenadeLaunchers]; };
+if (count _eliteSMGs > 0) then { _eliteLoadoutData set ["SMGs", _eliteSMGs]; };
+if (count _elitemachineGuns > 0) then { _eliteLoadoutData set ["machineGuns", _elitemachineGuns]; };
+if (count _elitemarksmanRifles > 0) then { _eliteLoadoutData set ["marksmanRifles", _elitemarksmanRifles]; };
+if (count _elitesniperRifles > 0) then { _eliteLoadoutData set ["sniperRifles", _elitesniperRifles]; };
+if (count _elitelightATLaunchers > 0) then { _eliteLoadoutData set ["lightATLaunchers", _elitelightATLaunchers]; };
+if (count _elitelightHELaunchers > 0) then { _eliteLoadoutData set ["lightHELaunchers", _elitelightHELaunchers]; };
+if (count _eliteATLaunchers > 0) then { _eliteLoadoutData set ["ATLaunchers", _eliteATLaunchers]; };
+if (count _elitemissleATLaunchers > 0) then { _eliteLoadoutData set ["missileATLaunchers", _elitemissleATLaunchers]; };
+if (count _eliteAALaunchers > 0) then { _eliteLoadoutData set ["AALaunchers", _eliteAALaunchers]; };
+if (count _elitesidearms > 0) then { _eliteLoadoutData set ["sidearms", _elitesidearms]; };
+if (count _eliteGLsidearms > 0) then { _eliteLoadoutData set ["GLsidearms", _eliteGLsidearms]; };
 
-_eliteLoadoutData set ["lightATLaunchers", _elitelightATLaunchers];
-_eliteLoadoutData set ["lightHELaunchers", _elitelightHELaunchers];
-_eliteLoadoutData set ["ATLaunchers", _eliteATLaunchers];
-_eliteLoadoutData set ["missileATLaunchers", _elitemissleATLaunchers];
-_eliteLoadoutData set ["AALaunchers", _eliteAALaunchers];
-_eliteLoadoutData set ["sidearms", _elitesidearms];
-_eliteLoadoutData set ["GLsidearms", _eliteGLsidearms];
+if (count _eliteATMines > 0) then { _eliteLoadoutData set ["ATMines", _eliteATMines]; };
+if (count _eliteAPMines > 0) then { _eliteLoadoutData set ["APMines", _eliteAPMines]; };
+if (count _elitelightExplosives > 0) then { _eliteLoadoutData set ["lightExplosives", _elitelightExplosives]; };
+if (count _eliteheavyExplosives > 0) then { _eliteLoadoutData set ["heavyExplosives", _eliteheavyExplosives]; };
 
-_eliteLoadoutData set ["ATMines", _eliteATMines];
-_eliteLoadoutData set ["APMines", _eliteAPMines];
-_eliteLoadoutData set ["lightExplosives", _elitelightExplosives];
-_eliteLoadoutData set ["heavyExplosives", _eliteheavyExplosives];
+if (count _eliteantiInfantryGrenades > 0) then { _eliteLoadoutData set ["antiInfantryGrenades", _eliteantiInfantryGrenades]; };
+if (count _elitesmokeGrenades > 0) then { _eliteLoadoutData set ["smokeGrenades", _elitesmokeGrenades]; };
+if (count _elitesignalsmokeGrenades > 0) then { _eliteLoadoutData set ["signalsmokeGrenades", _elitesignalsmokeGrenades]; };
 
-_eliteLoadoutData set ["antiInfantryGrenades", _eliteantiInfantryGrenades];
-_eliteLoadoutData set ["smokeGrenades", _elitesmokeGrenades];
-_eliteLoadoutData set ["signalsmokeGrenades", _elitesignalsmokeGrenades];
+if (count _elitemaps > 0) then { _eliteLoadoutData set ["maps", _elitemaps]; };
+if (count _elitewatches > 0) then { _eliteLoadoutData set ["watches", _elitewatches]; };
+if (count _elitecompasses > 0) then { _eliteLoadoutData set ["compasses", _elitecompasses]; };
+if (count _eliteradios > 0) then { _eliteLoadoutData set ["radios", _eliteradios]; };
+if (count _elitegpses > 0) then { _eliteLoadoutData set ["gpses", _elitegpses]; };
+if (count _eliteNVGs > 0) then { _eliteLoadoutData set ["NVGs", _eliteNVGs]; };
+if (count _elitebinoculars > 0) then { _eliteLoadoutData set ["binoculars", _elitebinoculars]; };
+if (count _eliterangefinders > 0) then { _eliteLoadoutData set ["rangefinders", _eliterangefinders]; };
 
-_eliteLoadoutData set ["maps", _elitemaps];
-_eliteLoadoutData set ["watches", _elitewatches];
-_eliteLoadoutData set ["compasses", _elitecompasses];
-_eliteLoadoutData set ["radios", _eliteradios];
-_eliteLoadoutData set ["gpses", _elitegpses];
-_eliteLoadoutData set ["NVGs", _eliteNVGs];
-_eliteLoadoutData set ["binoculars", _elitebinoculars];
-_eliteLoadoutData set ["rangefinders", _eliterangefinders];
-
-_eliteLoadoutData set ["traitorUniforms", _elitetraitorUniforms];
-_eliteLoadoutData set ["traitorVests", _elitetraitorVests];
-_eliteLoadoutData set ["traitorHats", _elitetraitorHats];
-_eliteLoadoutData set ["officerUniforms", _eliteofficerUniforms];
-_eliteLoadoutData set ["officerVests", _eliteofficerVests];
-_eliteLoadoutData set ["officerHats", _eliteofficerHats];
-_eliteLoadoutData set ["cloakUniforms", _elitecloakUniforms];
-_eliteLoadoutData set ["cloakVests", _elitecloakVests];
-
-_eliteLoadoutData set ["uniforms", _eliteuniforms];
-_eliteLoadoutData set ["slUniforms", _eliteslUniforms];
-_eliteLoadoutData set ["vests", _elitevests];
-_eliteLoadoutData set ["Hvests", _eliteHvests];
-_eliteLoadoutData set ["MGvests", _eliteMGvests];
-_eliteLoadoutData set ["MEDvests", _eliteMEDvests];
-_eliteLoadoutData set ["SLvests", _eliteSLvests];
-_eliteLoadoutData set ["sniVests", _eliteSNIvests];
-_eliteLoadoutData set ["GLvests", _eliteGLvests];
-_eliteLoadoutData set ["backpacks", _elitebackpacks];
-_eliteLoadoutData set ["atBackpacks", _eliteatBackpacks];
-_eliteLoadoutData set ["longRangeRadios", _elitelongRangeRadios];
-_eliteLoadoutData set ["helmets", _elitehelmets];
-_eliteLoadoutData set ["slHat", _eliteslHat];
-_eliteLoadoutData set ["sniHats", _elitesniHats];
+if (count _eliteuniforms > 0) then { _eliteLoadoutData set ["uniforms", _eliteuniforms]; };
+if (count _eliteslUniforms > 0) then { _eliteLoadoutData set ["slUniforms", _eliteslUniforms]; };
+if (count _elitevests > 0) then { _eliteLoadoutData set ["vests", _elitevests]; };
+if (count _eliteHvests > 0) then { _eliteLoadoutData set ["Hvests", _eliteHvests]; };
+if (count _eliteMGvests > 0) then { _eliteLoadoutData set ["MGvests", _eliteMGvests]; };
+if (count _eliteMEDvests > 0) then { _eliteLoadoutData set ["MEDvests", _eliteMEDvests]; };
+if (count _eliteSLvests > 0) then { _eliteLoadoutData set ["SLvests", _eliteSLvests]; };
+if (count _eliteSNIvests > 0) then { _eliteLoadoutData set ["sniVests", _eliteSNIvests]; };
+if (count _eliteGLvests > 0) then { _eliteLoadoutData set ["GLvests", _eliteGLvests]; };
+if (count _elitebackpacks > 0) then { _eliteLoadoutData set ["backpacks", _elitebackpacks]; };
+if (count _eliteatBackpacks > 0) then { _eliteLoadoutData set ["atBackpacks", _eliteatBackpacks]; };
+if (count _elitelongRangeRadios > 0) then { _eliteLoadoutData set ["longRangeRadios", _elitelongRangeRadios]; };
+if (count _elitehelmets > 0) then { _eliteLoadoutData set ["helmets", _elitehelmets]; };
+if (count _eliteslHat > 0) then { _eliteLoadoutData set ["slHat", _eliteslHat]; };
+if (count _elitesniHats > 0) then { _eliteLoadoutData set ["sniHats", _elitesniHats]; };
+if (count _eliteglasses > 0) then { _eliteLoadoutData set ["glasses", _eliteglasses]; };
+if (count _elitegoggles > 0) then { _eliteLoadoutData set ["goggles", _elitegoggles]; };
 
 /////////////////////////////////
 //    Military Loadout Data    //
 /////////////////////////////////
 
 private _militaryLoadoutData = _loadoutData call _fnc_copyLoadoutData; 
-_militaryLoadoutData set ["slRifles", _militaryslRifles];
-_militaryLoadoutData set ["rifles", _militaryrifles];
-_militaryLoadoutData set ["carbines", _militarycarbines];
-_militaryLoadoutData set ["grenadeLaunchers", _militarygrenadeLaunchers];
-_militaryLoadoutData set ["designatedGrenadeLaunchers", _militarydesignatedGrenadeLaunchers];
-_militaryLoadoutData set ["SMGs", _militarySMGs];
-_militaryLoadoutData set ["machineGuns", _militarymachineGuns];
-_militaryLoadoutData set ["marksmanRifles", _militarymarksmanRifles];
-_militaryLoadoutData set ["sniperRifles", _militarysniperRifles];
+if (count _militaryslRifles > 0) then { _militaryLoadoutData set ["slRifles", _militaryslRifles]; };
+if (count _militaryrifles > 0) then { _militaryLoadoutData set ["rifles", _militaryrifles]; };
+if (count _militarycarbines > 0) then { _militaryLoadoutData set ["carbines", _militarycarbines]; };
+if (count _militarygrenadeLaunchers > 0) then { _militaryLoadoutData set ["grenadeLaunchers", _militarygrenadeLaunchers]; };
+if (count _militarydesignatedGrenadeLaunchers > 0) then { _militaryLoadoutData set ["designatedGrenadeLaunchers", _militarydesignatedGrenadeLaunchers]; };
+if (count _militarySMGs > 0) then { _militaryLoadoutData set ["SMGs", _militarySMGs]; };
+if (count _militarymachineGuns > 0) then { _militaryLoadoutData set ["machineGuns", _militarymachineGuns]; };
+if (count _militarymarksmanRifles > 0) then { _militaryLoadoutData set ["marksmanRifles", _militarymarksmanRifles]; };
+if (count _militarysniperRifles > 0) then { _militaryLoadoutData set ["sniperRifles", _militarysniperRifles]; };
+if (count _militarylightATLaunchers > 0) then { _militaryLoadoutData set ["lightATLaunchers", _militarylightATLaunchers]; };
+if (count _militarylightHELaunchers > 0) then { _militaryLoadoutData set ["lightHELaunchers", _militarylightHELaunchers]; };
+if (count _militaryATLaunchers > 0) then { _militaryLoadoutData set ["ATLaunchers", _militaryATLaunchers]; };
+if (count _militarymissleATLaunchers > 0) then { _militaryLoadoutData set ["missileATLaunchers", _militarymissleATLaunchers]; };
+if (count _militaryAALaunchers > 0) then { _militaryLoadoutData set ["AALaunchers", _militaryAALaunchers]; };
+if (count _militarysidearms > 0) then { _militaryLoadoutData set ["sidearms", _militarysidearms]; };
+if (count _militaryGLsidearms > 0) then { _militaryLoadoutData set ["GLsidearms", _militaryGLsidearms]; };
 
-_militaryLoadoutData set ["lightATLaunchers", _militarylightATLaunchers];
-_militaryLoadoutData set ["lightHELaunchers", _militarylightHELaunchers];
-_militaryLoadoutData set ["ATLaunchers", _militaryATLaunchers];
-_militaryLoadoutData set ["missileATLaunchers", _militarymissleATLaunchers];
-_militaryLoadoutData set ["AALaunchers", _militaryAALaunchers];
-_militaryLoadoutData set ["sidearms", _militarysidearms];
-_militaryLoadoutData set ["GLsidearms", _militaryGLsidearms];
+if (count _militaryATMines > 0) then { _militaryLoadoutData set ["ATMines", _militaryATMines]; };
+if (count _militaryAPMines > 0) then { _militaryLoadoutData set ["APMines", _militaryAPMines]; };
+if (count _militarylightExplosives > 0) then { _militaryLoadoutData set ["lightExplosives", _militarylightExplosives]; };
+if (count _militaryheavyExplosives > 0) then { _militaryLoadoutData set ["heavyExplosives", _militaryheavyExplosives]; };
 
-_militaryLoadoutData set ["ATMines", _militaryATMines];
-_militaryLoadoutData set ["APMines", _militaryAPMines];
-_militaryLoadoutData set ["lightExplosives", _militarylightExplosives];
-_militaryLoadoutData set ["heavyExplosives", _militaryheavyExplosives];
+if (count _militaryantiInfantryGrenades > 0) then { _militaryLoadoutData set ["antiInfantryGrenades", _militaryantiInfantryGrenades]; };
+if (count _militarysmokeGrenades > 0) then { _militaryLoadoutData set ["smokeGrenades", _militarysmokeGrenades]; };
+if (count _militarysignalsmokeGrenades > 0) then { _militaryLoadoutData set ["signalsmokeGrenades", _militarysignalsmokeGrenades]; };
 
-_militaryLoadoutData set ["antiInfantryGrenades", _militaryantiInfantryGrenades];
-_militaryLoadoutData set ["smokeGrenades", _militarysmokeGrenades];
-_militaryLoadoutData set ["signalsmokeGrenades", _militarysignalsmokeGrenades];
+if (count _militarymaps > 0) then { _militaryLoadoutData set ["maps", _militarymaps]; };
+if (count _militarywatches > 0) then { _militaryLoadoutData set ["watches", _militarywatches]; };
+if (count _militarycompasses > 0) then { _militaryLoadoutData set ["compasses", _militarycompasses]; };
+if (count _militaryradios > 0) then { _militaryLoadoutData set ["radios", _militaryradios]; };
+if (count _militarygpses > 0) then { _militaryLoadoutData set ["gpses", _militarygpses]; };
+if (count _militaryNVGs > 0) then { _militaryLoadoutData set ["NVGs", _militaryNVGs]; };
+if (count _militarybinoculars > 0) then { _militaryLoadoutData set ["binoculars", _militarybinoculars]; };
+if (count _militaryrangefinders > 0) then { _militaryLoadoutData set ["rangefinders", _militaryrangefinders]; };
 
-_militaryLoadoutData set ["maps", _militarymaps];
-_militaryLoadoutData set ["watches", _militarywatches];
-_militaryLoadoutData set ["compasses", _militarycompasses];
-_militaryLoadoutData set ["radios", _militaryradios];
-_militaryLoadoutData set ["gpses", _militarygpses];
-_militaryLoadoutData set ["NVGs", _militaryNVGs];
-_militaryLoadoutData set ["binoculars", _militarybinoculars];
-_militaryLoadoutData set ["rangefinders", _militaryrangefinders];
-
-_militaryLoadoutData set ["traitorUniforms", _militarytraitorUniforms];
-_militaryLoadoutData set ["traitorVests", _militarytraitorVests];
-_militaryLoadoutData set ["traitorHats", _militarytraitorHats];
-_militaryLoadoutData set ["officerUniforms", _militaryofficerUniforms];
-_militaryLoadoutData set ["officerVests", _militaryofficerVests];
-_militaryLoadoutData set ["officerHats", _militaryofficerHats];
-_militaryLoadoutData set ["cloakUniforms", _militarycloakUniforms];
-_militaryLoadoutData set ["cloakVests", _militarycloakVests];
-
-_militaryLoadoutData set ["uniforms", _militaryuniforms];
-_militaryLoadoutData set ["slUniforms", _militaryslUniforms];
-_militaryLoadoutData set ["vests", _militaryvests];
-_militaryLoadoutData set ["Hvests", _militaryHvests];
-_militaryLoadoutData set ["MGvests", _militaryMGvests];
-_militaryLoadoutData set ["MEDvests", _militaryMEDvests];
-_militaryLoadoutData set ["SLvests", _militarySLvests];
-_militaryLoadoutData set ["sniVests", _militarySNIvests];
-_militaryLoadoutData set ["GLvests", _militaryGLvests];
-_militaryLoadoutData set ["backpacks", _militarybackpacks];
-_militaryLoadoutData set ["atBackpacks", _militaryatBackpacks];
-_militaryLoadoutData set ["longRangeRadios", _militarylongRangeRadios];
-_militaryLoadoutData set ["helmets", _militaryhelmets];
-_militaryLoadoutData set ["slHat", _militaryslHat];
-_militaryLoadoutData set ["sniHats", _militarysniHats];
+if (count _militaryuniforms > 0) then { _militaryLoadoutData set ["uniforms", _militaryuniforms]; };
+if (count _militaryslUniforms > 0) then { _militaryLoadoutData set ["slUniforms", _militaryslUniforms]; };
+if (count _militaryvests > 0) then { _militaryLoadoutData set ["vests", _militaryvests]; };
+if (count _militaryHvests > 0) then { _militaryLoadoutData set ["Hvests", _militaryHvests]; };
+if (count _militaryMGvests > 0) then { _militaryLoadoutData set ["MGvests", _militaryMGvests]; };
+if (count _militaryMEDvests > 0) then { _militaryLoadoutData set ["MEDvests", _militaryMEDvests]; };
+if (count _militarySLvests > 0) then { _militaryLoadoutData set ["SLvests", _militarySLvests]; };
+if (count _militarySNIvests > 0) then { _militaryLoadoutData set ["sniVests", _militarySNIvests]; };
+if (count _militaryGLvests > 0) then { _militaryLoadoutData set ["GLvests", _militaryGLvests]; };
+if (count _militarybackpacks > 0) then { _militaryLoadoutData set ["backpacks", _militarybackpacks]; };
+if (count _militaryatBackpacks > 0) then { _militaryLoadoutData set ["atBackpacks", _militaryatBackpacks]; };
+if (count _militarylongRangeRadios > 0) then { _militaryLoadoutData set ["longRangeRadios", _militarylongRangeRadios]; };
+if (count _militaryhelmets > 0) then { _militaryLoadoutData set ["helmets", _militaryhelmets]; };
+if (count _militaryslHat > 0) then { _militaryLoadoutData set ["slHat", _militaryslHat]; };
+if (count _militarysniHats > 0) then { _militaryLoadoutData set ["sniHats", _militarysniHats]; };
+if (count _militaryglasses > 0) then { _militaryLoadoutData set ["glasses", _militaryglasses]; };
+if (count _militarygoggles > 0) then { _militaryLoadoutData set ["goggles", _militarygoggles]; };
 
 ///////////////////////////////
 //    Police Loadout Data    //
 ///////////////////////////////
 
 private _policeLoadoutData = _loadoutData call _fnc_copyLoadoutData; 
-_policeLoadoutData set ["uniforms", _policeuniforms];
-_policeLoadoutData set ["vests", _policevests];
-_policeLoadoutData set ["helmets", _policehelmets];
-_policeLoadoutData set ["SMGs", _policepoliceWeapons];
-_policeLoadoutData set ["sidearms", _policesidearms];
+if (count _policeuniforms > 0) then { _policeLoadoutData set ["uniforms", _policeuniforms]; };
+if (count _policevests > 0) then { _policeLoadoutData set ["vests", _policevests]; };
+if (count _policehelmets > 0) then { _policeLoadoutData set ["helmets", _policehelmets]; };
+if (count _policepoliceWeapons > 0) then { _policeLoadoutData set ["SMGs", _policepoliceWeapons]; };
+if (count _policesidearms > 0) then { _policeLoadoutData set ["sidearms", _policesidearms]; };
 
 ////////////////////////////////
 //    Militia Loadout Data    //
 ////////////////////////////////
 
 private _militiaLoadoutData = _loadoutData call _fnc_copyLoadoutData; 
-_militiaLoadoutData set ["slRifles", _militiaslRifles];
-_militiaLoadoutData set ["rifles", _militiarifles];
-_militiaLoadoutData set ["carbines", _militiacarbines];
-_militiaLoadoutData set ["grenadeLaunchers", _militiagrenadeLaunchers];
-_militiaLoadoutData set ["designatedGrenadeLaunchers", _militiadesignatedGrenadeLaunchers];
-_militiaLoadoutData set ["SMGs", _militiaSMGs];
-_militiaLoadoutData set ["machineGuns", _militiamachineGuns];
-_militiaLoadoutData set ["marksmanRifles", _militiamarksmanRifles];
-_militiaLoadoutData set ["sniperRifles", _militiasniperRifles];
+if (count _militiaslRifles > 0) then { _militiaLoadoutData set ["slRifles", _militiaslRifles]; };
+if (count _militiarifles > 0) then { _militiaLoadoutData set ["rifles", _militiarifles]; };
+if (count _militiacarbines > 0) then { _militiaLoadoutData set ["carbines", _militiacarbines]; };
+if (count _militiagrenadeLaunchers > 0) then { _militiaLoadoutData set ["grenadeLaunchers", _militiagrenadeLaunchers]; };
+if (count _militiadesignatedGrenadeLaunchers > 0) then { _militiaLoadoutData set ["designatedGrenadeLaunchers", _militiadesignatedGrenadeLaunchers]; };
+if (count _militiaSMGs > 0) then { _militiaLoadoutData set ["SMGs", _militiaSMGs]; };
+if (count _militiamachineGuns > 0) then { _militiaLoadoutData set ["machineGuns", _militiamachineGuns]; };
+if (count _militiamarksmanRifles > 0) then { _militiaLoadoutData set ["marksmanRifles", _militiamarksmanRifles]; };
+if (count _militiasniperRifles > 0) then { _militiaLoadoutData set ["sniperRifles", _militiasniperRifles]; };
+if (count _militialightATLaunchers > 0) then { _militiaLoadoutData set ["lightATLaunchers", _militialightATLaunchers]; };
+if (count _militialightHELaunchers > 0) then { _militiaLoadoutData set ["lightHELaunchers", _militialightHELaunchers]; };
+if (count _militiaATLaunchers > 0) then { _militiaLoadoutData set ["ATLaunchers", _militiaATLaunchers]; };
+if (count _militiamissleATLaunchers > 0) then { _militiaLoadoutData set ["missileATLaunchers", _militiamissleATLaunchers]; };
+if (count _militiaAALaunchers > 0) then { _militiaLoadoutData set ["AALaunchers", _militiaAALaunchers]; };
+if (count _militiasidearms > 0) then { _militiaLoadoutData set ["sidearms", _militiasidearms]; };
+if (count _militiaGLsidearms > 0) then { _militiaLoadoutData set ["GLsidearms", _militiaGLsidearms]; };
 
-_militiaLoadoutData set ["lightATLaunchers", _militialightATLaunchers];
-_militiaLoadoutData set ["lightHELaunchers", _militialightHELaunchers];
-_militiaLoadoutData set ["ATLaunchers", _militiaATLaunchers];
-_militiaLoadoutData set ["missileATLaunchers", _militiamissleATLaunchers];
-_militiaLoadoutData set ["AALaunchers", _militiaAALaunchers];
-_militiaLoadoutData set ["sidearms", _militiasidearms];
-_militiaLoadoutData set ["GLsidearms", _militiaGLsidearms];
+if (count _militiaATMines > 0) then { _militiaLoadoutData set ["ATMines", _militiaATMines]; };
+if (count _militiaAPMines > 0) then { _militiaLoadoutData set ["APMines", _militiaAPMines]; };
+if (count _militialightExplosives > 0) then { _militiaLoadoutData set ["lightExplosives", _militialightExplosives]; };
+if (count _militiaheavyExplosives > 0) then { _militiaLoadoutData set ["heavyExplosives", _militiaheavyExplosives]; };
 
-_militiaLoadoutData set ["ATMines", _militiaATMines];
-_militiaLoadoutData set ["APMines", _militiaAPMines];
-_militiaLoadoutData set ["lightExplosives", _militialightExplosives];
-_militiaLoadoutData set ["heavyExplosives", _militiaheavyExplosives];
+if (count _militiaantiInfantryGrenades > 0) then { _militiaLoadoutData set ["antiInfantryGrenades", _militiaantiInfantryGrenades]; };
+if (count _militiasmokeGrenades > 0) then { _militiaLoadoutData set ["smokeGrenades", _militiasmokeGrenades]; };
+if (count _militiasignalsmokeGrenades > 0) then { _militiaLoadoutData set ["signalsmokeGrenades", _militiasignalsmokeGrenades]; };
 
-_militiaLoadoutData set ["antiInfantryGrenades", _militiaantiInfantryGrenades];
-_militiaLoadoutData set ["smokeGrenades", _militiasmokeGrenades];
-_militiaLoadoutData set ["signalsmokeGrenades", _militiasignalsmokeGrenades];
+if (count _militiamaps > 0) then { _militiaLoadoutData set ["maps", _militiamaps]; };
+if (count _militiawatches > 0) then { _militiaLoadoutData set ["watches", _militiawatches]; };
+if (count _militiacompasses > 0) then { _militiaLoadoutData set ["compasses", _militiacompasses]; };
+if (count _militiaradios > 0) then { _militiaLoadoutData set ["radios", _militiaradios]; };
+if (count _militiagpses > 0) then { _militiaLoadoutData set ["gpses", _militiagpses]; };
+if (count _militiaNVGs > 0) then { _militiaLoadoutData set ["NVGs", _militiaNVGs]; };
+if (count _militiabinoculars > 0) then { _militiaLoadoutData set ["binoculars", _militiabinoculars]; };
+if (count _militiarangefinders > 0) then { _militiaLoadoutData set ["rangefinders", _militiarangefinders]; };
 
-_militiaLoadoutData set ["maps", _militiamaps];
-_militiaLoadoutData set ["watches", _militiawatches];
-_militiaLoadoutData set ["compasses", _militiacompasses];
-_militiaLoadoutData set ["radios", _militiaradios];
-_militiaLoadoutData set ["gpses", _militiagpses];
-_militiaLoadoutData set ["NVGs", _militiaNVGs];
-_militiaLoadoutData set ["binoculars", _militiabinoculars];
-_militiaLoadoutData set ["rangefinders", _militiarangefinders];
-
-_militiaLoadoutData set ["traitorUniforms", _militiatraitorUniforms];
-_militiaLoadoutData set ["traitorVests", _militiatraitorVests];
-_militiaLoadoutData set ["traitorHats", _militiatraitorHats];
-_militiaLoadoutData set ["officerUniforms", _militiaofficerUniforms];
-_militiaLoadoutData set ["officerVests", _militiaofficerVests];
-_militiaLoadoutData set ["officerHats", _militiaofficerHats];
-_militiaLoadoutData set ["cloakUniforms", _militiacloakUniforms];
-_militiaLoadoutData set ["cloakVests", _militiacloakVests];
-
-_militiaLoadoutData set ["uniforms", _militiauniforms];
-_militiaLoadoutData set ["slUniforms", _militiaslUniforms];
-_militiaLoadoutData set ["vests", _militiavests];
-_militiaLoadoutData set ["Hvests", _militiaHvests];
-_militiaLoadoutData set ["MGvests", _militiaMGvests];
-_militiaLoadoutData set ["MEDvests", _militiaMEDvests];
-_militiaLoadoutData set ["SLvests", _militiaSLvests];
-_militiaLoadoutData set ["sniVests", _militiaSNIvests];
-_militiaLoadoutData set ["GLvests", _militiaGLvests];
-_militiaLoadoutData set ["backpacks", _militiabackpacks];
-_militiaLoadoutData set ["atBackpacks", _militiaatBackpacks];
-_militiaLoadoutData set ["longRangeRadios", _militialongRangeRadios];
-_militiaLoadoutData set ["helmets", _militiahelmets];
-_militiaLoadoutData set ["slHat", _militiaslHat];
-_militiaLoadoutData set ["sniHats", _militiasniHats];
+if (count _militiauniforms > 0) then { _militiaLoadoutData set ["uniforms", _militiauniforms]; };
+if (count _militiaslUniforms > 0) then { _militiaLoadoutData set ["slUniforms", _militiaslUniforms]; };
+if (count _militiavests > 0) then { _militiaLoadoutData set ["vests", _militiavests]; };
+if (count _militiaHvests > 0) then { _militiaLoadoutData set ["Hvests", _militiaHvests]; };
+if (count _militiaMGvests > 0) then { _militiaLoadoutData set ["MGvests", _militiaMGvests]; };
+if (count _militiaMEDvests > 0) then { _militiaLoadoutData set ["MEDvests", _militiaMEDvests]; };
+if (count _militiaSLvests > 0) then { _militiaLoadoutData set ["SLvests", _militiaSLvests]; };
+if (count _militiaSNIvests > 0) then { _militiaLoadoutData set ["sniVests", _militiaSNIvests]; };
+if (count _militiaGLvests > 0) then { _militiaLoadoutData set ["GLvests", _militiaGLvests]; };
+if (count _militiabackpacks > 0) then { _militiaLoadoutData set ["backpacks", _militiabackpacks]; };
+if (count _militiaatBackpacks > 0) then { _militiaLoadoutData set ["atBackpacks", _militiaatBackpacks]; };
+if (count _militialongRangeRadios > 0) then { _militiaLoadoutData set ["longRangeRadios", _militialongRangeRadios]; };
+if (count _militiahelmets > 0) then { _militiaLoadoutData set ["helmets", _militiahelmets]; };
+if (count _militiaslHat > 0) then { _militiaLoadoutData set ["slHat", _militiaslHat]; };
+if (count _militiasniHats > 0) then { _militiaLoadoutData set ["sniHats", _militiasniHats]; };
+if (count _militiaglasses > 0) then { _militiaLoadoutData set ["glasses", _militiaglasses]; };
+if (count _militiagoggles > 0) then { _militiaLoadoutData set ["goggles", _militiagoggles]; };
 
 //////////////////////////
 //    Misc Loadouts     //
@@ -791,14 +885,17 @@ _militiaLoadoutData set ["sniHats", _militiasniHats];
 
 
 private _crewLoadoutData = _militaryLoadoutData call _fnc_copyLoadoutData; 
-_crewLoadoutData set ["uniforms", _crewuniforms];
-_crewLoadoutData set ["vests", _crewvests];
-_crewLoadoutData set ["helmets", _crewhelmets];
+if (count _crewuniforms > 0) then { _crewLoadoutData set ["uniforms", _crewuniforms]; };
+if (count _crewvests > 0) then { _crewLoadoutData set ["vests", _crewvests]; };
+if (count _crewhelmets > 0) then { _crewLoadoutData set ["helmets", _crewhelmets]; };
+if (count _crewcarbines > 0) then { _policeLoadoutData set ["carbines", _crewcarbines]; };
+if (count _crewSMGs > 0) then { _policeLoadoutData set ["SMGs", _crewSMGs]; };
 
 private _pilotLoadoutData = _militaryLoadoutData call _fnc_copyLoadoutData;
-_pilotLoadoutData set ["uniforms", _pilotuniforms];
-_pilotLoadoutData set ["vests", _pilotvests];
-_pilotLoadoutData set ["helmets", _pilothelmets];
+if (count _pilotuniforms > 0) then { _pilotLoadoutData set ["uniforms", _pilotuniforms]; };
+if (count _pilotvests > 0) then { _pilotLoadoutData set ["vests", _pilotvests]; };
+if (count _pilothelmets > 0) then { _pilotLoadoutData set ["helmets", _pilothelmets]; };
+if (count _pilotSMGs > 0) then { _pilotLoadoutData set ["SMGs", _pilotSMGs]; };
 
 /////////////////////////////////
 //    Unit Type Definitions    //
@@ -893,6 +990,7 @@ private _medicTemplate = {
     [["Hvests", "vests"] call _fnc_fallback] call _fnc_setVest;
     ["uniforms"] call _fnc_setUniform;
     ["backpacks"] call _fnc_setBackpack;
+
     [selectRandom ["carbines", "rifles"]] call _fnc_setPrimary;
     ["primary", 6] call _fnc_addMagazines;
 
@@ -924,7 +1022,7 @@ private _grenadierTemplate = {
     } else {
         ["grenadeLaunchers"] call _fnc_setPrimary;
     };
-    
+
     ["primary", 6] call _fnc_addMagazines;
     ["primary", 10] call _fnc_addAdditionalMuzzleMagazines;
 
@@ -1449,6 +1547,7 @@ private _unitTypes = [
 
 //The following lines are determining the loadout of vehicle crew
 ["other", [["Crew", _crewTemplate, [], ["other"]]], _crewLoadoutData] call _fnc_generateAndSaveUnitsToTemplate;
+
 ["other", [["Pilot", _crewTemplate, [], ["other"]]], _pilotLoadoutData] call _fnc_generateAndSaveUnitsToTemplate;
 //The following lines are determining the loadout for the unit used in the "kill the official" mission
 ["other", [["Official", _officerTemplate, [], ["other"]]], _militaryLoadoutData] call _fnc_generateAndSaveUnitsToTemplate;

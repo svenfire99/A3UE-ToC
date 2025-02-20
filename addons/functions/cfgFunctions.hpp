@@ -25,6 +25,22 @@ class CfgFunctions
             class SUP_QRFRoutine            { file = QPATHTOFOLDER(Supports\fn_SUP_QRFRoutine.sqf); };
             class SUP_UAVRoutine            { file = QPATHTOFOLDER(Supports\fn_SUP_UAVRoutine.sqf); };
         }
+
+        class Loadouts {
+            class loadout_setBackpack           { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_addEquipment.sqf); };
+            class loadout_addEquipment          { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_setBackpack.sqf); };
+            class loadout_setHelmet             { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_setHelmet.sqf); };
+            class loadout_setFacewear           { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_setFacewear.sqf); };
+            class loadout_addItems              { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_addItems.sqf); };
+            class loadout_additionalMuzzleMags  { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_additionalMuzzleMags.sqf); };
+            class loadout_setUniform            { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_setUniform.sqf); };
+            class loadout_setVest               { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_setVest.sqf); };
+            class loadout_setWeapon             { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_setWeapon.sqf); };
+            class loadout_builder               { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_builder.sqf); };
+            class loadout_createBase            { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_createBase.sqf); };
+            class loadout_defaultWeaponMag      { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_defaultWeaponMag.sqf); };
+            class loadout_itemLoad              { file = QPATHTOFOLDER(Templates\Loadouts\fn_loadout_itemLoad.sqf); };
+        }
     };
 
     //your own functions should be kept here
