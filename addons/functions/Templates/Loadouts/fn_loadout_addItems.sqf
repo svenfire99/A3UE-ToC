@@ -57,6 +57,7 @@ private _itemBatches = [];
 /*
  Calculate how much free load we have in each uniform/vest/backpack
 */
+Debug_1("Trying to calculate max load of loadout %1", _loadout);
 
 private _uniform = _loadout select 3;
 private _vest = _loadout select 4;

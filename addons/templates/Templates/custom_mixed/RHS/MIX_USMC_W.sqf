@@ -135,11 +135,11 @@ _helmets append [];
 _slHat append [];
 _sniHats append [];
 
-_slItems append ["Laserbatteries", "Laserbatteries", "Laserbatteries"];
+_slItems append [];
 _rItems append [];
 _mItems append [];
 _gItems append [];
-_eeItems append ["ToolKit", "MineDetector"];
+_eeItems append [];
 _latItems append [];
 _atItems append [];
 _aaItems append [];
